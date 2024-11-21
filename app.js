@@ -21,9 +21,16 @@ app.get('/api/books', (req, res) => {
   res.json(updatedBooks);
 });
 
-// POST: Add a new book
+// POST: Add a new book (check for duplicate title before adding)
 app.post('/api/books', (req, res) => {
   const { title, author, price, stock } = req.body;
+
+  // Check if the book with the same title already exists
+  const existingBook = books.find(book => book.title === title);
+
+  if (existingBook) {
+    return res.status(400).send("Cannot add, book with this title already exists");  // Return an error if the title exists
+  }
 
   // Round the price to 2 decimal places before adding it
   const newBook = {

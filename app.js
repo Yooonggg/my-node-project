@@ -9,11 +9,11 @@ let books = [
   { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee", price: 12.99, stock: 3 },
 ];
 
-// GET: Retrieve all books with price as floating-point (formatted to 2 decimal places)
+// GET: Retrieve all books with price as floating-point (rounded to 2 decimal places)
 app.get('/api/books', (req, res) => {
   const updatedBooks = books.map(book => ({
     ...book,
-    price: parseFloat(book.price).toFixed(2) // Ensures it's a floating-point number and formats to 2 decimal places
+    price: Math.round(book.price * 100) / 100 // Round the price to 2 decimal places, keeps it a number
   }));
   res.json(updatedBooks);
 });

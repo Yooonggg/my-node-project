@@ -21,15 +21,15 @@ app.get('/api/books', (req, res) => {
   res.json(updatedBooks);
 });
 
-// POST: Add a new book (check for duplicate title before adding)
+// POST: Add a new book (check for duplicate title and author)
 app.post('/api/books', (req, res) => {
   const { title, author, price, stock } = req.body;
 
-  // Check if the book with the same title already exists
-  const existingBook = books.find(book => book.title === title);
+  // Check if the book with the same title and author already exists
+  const existingBook = books.find(book => book.title === title && book.author === author);
 
   if (existingBook) {
-    return res.status(400).send("Cannot add, book with this title already exists");  // Return an error if the title exists
+    return res.status(400).send("Cannot add, book with this title and author already exists");
   }
 
   // Round the price to 2 decimal places before adding it
@@ -44,7 +44,7 @@ app.post('/api/books', (req, res) => {
   res.status(201).json(newBook);
 });
 
-// PUT: Update a book by ID
+// PUT: Update a book by ID (check for duplicate title and author)
 app.put('/api/books/:id', (req, res) => {
   const bookId = parseInt(req.params.id);
   const book = books.find(b => b.id === bookId);
@@ -53,6 +53,14 @@ app.put('/api/books/:id', (req, res) => {
   // Destructure incoming data and round price if provided
   const { title, author, price, stock } = req.body;
   
+  // Check if the updated book title and author already exist (and it's not the same book)
+  const duplicateBook = books.find(b => b.title === title && b.author === author && b.id !== bookId);
+  
+  if (duplicateBook) {
+    return res.status(400).send("Cannot update, book with this title and author already exists");
+  }
+
+  // Update the book fields
   if (price !== undefined) {
     book.price = roundPrice(price);  // Apply price rounding here
   }

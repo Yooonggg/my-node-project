@@ -9,9 +9,13 @@ let books = [
   { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee", price: 12.99, stock: 3 },
 ];
 
-// GET: Retrieve all books
+// GET: Retrieve all books with doubled prices
 app.get('/api/books', (req, res) => {
-  res.json(books);
+  const updatedBooks = books.map(book => ({
+    ...book,
+    price: (book.price * 2).toFixed(2) // Double the price and format to 2 decimal places
+  }));
+  res.json(updatedBooks);
 });
 
 // POST: Add a new book

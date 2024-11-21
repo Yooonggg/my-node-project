@@ -31,9 +31,14 @@ app.put('/api/books/:id', (req, res) => {
   res.json(book);
 });
 
-// DELETE: Remove a book by ID
+// DELETE: Remove a book by ID and reindex remaining books
 app.delete('/api/books/:id', (req, res) => {
-  books = books.filter(b => b.id !== parseInt(req.params.id));
+  const bookId = parseInt(req.params.id);
+  books = books.filter(b => b.id !== bookId);
+
+  // Reindex the books
+  books = books.map((book, index) => ({ ...book, id: index + 1 }));
+
   res.status(204).send();
 });
 

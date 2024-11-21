@@ -9,18 +9,30 @@ let books = [
   { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee", price: 12.99, stock: 3 },
 ];
 
+// Function to round price to 2 decimal places
+const roundPrice = (price) => Math.round(price * 100) / 100;
+
 // GET: Retrieve all books with price as floating-point (rounded to 2 decimal places)
 app.get('/api/books', (req, res) => {
   const updatedBooks = books.map(book => ({
     ...book,
-    price: Math.round(book.price * 100) / 100 // Round the price to 2 decimal places, keeps it a number
+    price: roundPrice(book.price)  // Round the price to 2 decimal places, keeps it a number
   }));
   res.json(updatedBooks);
 });
 
 // POST: Add a new book
 app.post('/api/books', (req, res) => {
-  const newBook = { id: books.length + 1, ...req.body };
+  const { title, author, price, stock } = req.body;
+
+  // Round the price to 2 decimal places before adding it
+  const newBook = {
+    id: books.length + 1,
+    title,
+    author,
+    price: roundPrice(price),  // Apply price rounding here
+    stock
+  };
   books.push(newBook);
   res.status(201).json(newBook);
 });
@@ -31,7 +43,17 @@ app.put('/api/books/:id', (req, res) => {
   const book = books.find(b => b.id === bookId);
   if (!book) return res.status(404).send('Book not found.');
 
-  Object.assign(book, req.body);
+  // Destructure incoming data and round price if provided
+  const { title, author, price, stock } = req.body;
+  
+  if (price !== undefined) {
+    book.price = roundPrice(price);  // Apply price rounding here
+  }
+  
+  if (title !== undefined) book.title = title;
+  if (author !== undefined) book.author = author;
+  if (stock !== undefined) book.stock = stock;
+
   res.json(book);
 });
 

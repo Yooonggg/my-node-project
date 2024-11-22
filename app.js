@@ -5,8 +5,111 @@ app.use(express.json());
 
 // In-memory "database"
 let books = [
-  { id: 1, title: "1984", author: "George Orwell", price: 9.99, stock: 5 },
-  { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee", price: 12.99, stock: 3 },
+  { 
+    id:      1, 
+    title:  "Flipped", 
+    author: "Rio Nava", 
+    price:   95.99, 
+    stock:   50 
+  },
+  { 
+    id:      2, 
+    title:   "The Alchemist", 
+    author:  "Rio Nava", 
+    price:   120.99, 
+    stock:   132 
+  },
+  { 
+    id:      3, 
+    title:   "The Love Hypothesis", 
+    author:  "Rio Nava", 
+    price:   145.99, 
+    stock:   80 
+  },
+  { 
+    id:      4, 
+    title:   "The Siren", 
+    author:  "Rio Nava", 
+    price:   80.49, 
+    stock:   120 
+  },
+  { 
+    id:      5, 
+    title:   "Turtles All the Way Down", 
+    author:  "Rio Nava", 
+    price:   110.99, 
+    stock:   40 
+  },
+  { 
+    id:      6, 
+    title:   "Harry Potter and the Sorcerer's Stone", 
+    author:  "Kathleen Felisilda", 
+    price:   550.55, 
+    stock:   210
+  },
+  { 
+    id:      7, 
+    title:   "The Midnight Library", 
+    author:  "Kathleen Felisilda",
+    price:   550.50, 
+    stock:   220 
+  },
+  { 
+    id: 8, 
+    title: "Once Upon A Broken Heart", 
+    author: "Kathleen Felisilda", 
+    price: 750.80, 
+    stock: 150 
+  },
+  { 
+    id: 9, 
+    title: "Pride and Prejudice", 
+    author: "Kathleen Felisilda", 
+    price: 275.42, 
+    stock: 189
+  },
+  { 
+    id: 10, 
+    title: "The Great Gatsby", 
+    author: "Kathleen Felisilda", 
+    price: 650.67, 
+    stock: 200 
+  },
+  { 
+    id: 11, 
+    title: "The Brothers Karamazov", 
+    author: "James Allen Victoria", 
+    price: 14.49, 
+    stock: 4 
+  },
+  { 
+    id: 12, 
+    title: "Les Misérables", 
+    author: "James Allen Victoria", 
+    price: 18.99, 
+    stock: 3 
+  },
+  { 
+    id: 13, 
+    title: "Jane Eyre", 
+    author: "James Allen Victoria", 
+    price: 9.99, 
+    stock: 7 
+  },
+  { 
+    id: 14, 
+    title: "Wuthering Heights", 
+    author: "James Allen Victoria", 
+    price: 11.49, 
+    stock: 5 
+  },
+  { 
+    id: 15, 
+    title: "Animal Farm", 
+    author: "James Allen Victoria", 
+    price: 7.99, 
+    stock: 10 
+  },
 ];
 
 // Function to round price to 2 decimal places
